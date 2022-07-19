@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+{% load icons %}
+
+{% block title %}sw33tp0t4t0{% endblock %}
+
+{% block content %}
+  <!-- search post with tag -->
+  {% if tag %}<h2>Posts tagged with "{{ tag.name }}"</h2>{% endif %}
+
+  <!-- post list -->
+  {% for post in posts %}
+    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+    <div class="post-list-small">
+      <i>
+      <!-- tags -->
+      {% icon 'tag' %}
+      {% for tag in post.tags.all %}
+        <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      <!-- published date -->
+      &#8201;&#8201; {% icon 'calendar' %} {{ post.publish|date:'H:i:s F d, Y' }}</i>
+    </div>
+
+    <!-- sort post description -->
+    <div class="post-list-sort-description">{{ post.body|markdown|truncatewords_html:50|safe }}</div>
+  {% endfor %}
+
+  <!-- pagination -->
+  {% include "pagination.html" with page=posts %}
+{% endblock %}

@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-to+@(kzpai#)h^ufb+ng$#)1s0j%d@84a%napx2_k+ihmm^g0o'
-# SECRET_KEY = 'WmjBWx32tYi08/lw5tH/7XMHWw7pTn5KsvcAJDuWHTk='
+SECRET_KEY = 'WmjBWx32tYi08/lw5tH/7XMHWw7pTn5KsvcAJDuWHTk='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+    'django.contrib.postgres',
+    'blog.apps.BlogConfig',
+    'taggit',
+    'tinymce',
+    'django_icons',
 ]
 
 MIDDLEWARE = [
@@ -117,9 +123,44 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+# Settings for django-icons
+DJANGO_ICONS = {
+
+    'DEFAULTS': {
+        'renderer': 'fontawesome4',
+    },
+
+    'RENDERERS': {
+        'fontawesome4': 'FontAwesome4Renderer',
+        'bootstrap3': 'Bootstrap3Renderer',
+    },
+
+    'ICONS': {
+        'book': 'book',
+        'calendar': 'calendar',
+        'tag': 'tag',
+        'delete': 'trash',
+        'bug': 'bug',
+        'bomb': 'bomb',
+        'edit': {
+            'name': 'pencil',
+            'title': 'Edit',
+        },
+        'feather': {
+            'renderer': 'tests.app.renderers.CustomSvgRenderer',
+        },
+        'paperplane': {
+            'renderer': 'tests.app.renderers.CustomSvgRenderer',
+        }
+    },
+}
+
+TINYMCE_JS_ROOT = STATIC_ROOT / 'tinymce'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import django_heroku

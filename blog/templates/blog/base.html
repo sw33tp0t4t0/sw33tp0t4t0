@@ -1,0 +1,97 @@
+{% load blog_tags %}
+{% load static %}
+{% load icons %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/font.css' %}" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <div class="column col-one">
+        <div class="header">
+            <h1><a href="{% url 'blog:post_list' %}">sw33tp0t4t0</a></h1>
+        </div>
+
+        <div class="nav-bar">
+            <!-- <div class="search-form">
+                <form>
+                    <input type="search" placeholder="Search with title...">
+                </form>
+            </div> -->
+        
+            <div class="list-post">
+                <ol>
+                  {% get_most_commented_posts as most_commented_posts %}
+                  {% for p in most_commented_posts %}
+                    <li>
+                      <a href="{{ p.get_absolute_url }}" {% if p.id == post.id %}class="active"{% endif %}>
+                        {% icon 'bomb' %}&#8201;&#8201;&#8201;{{ p.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ol>
+            </div>
+        </div>
+
+        <div class="footer">
+          Copyright © 2021
+        </div>
+    </div>
+
+    <div class="column col-two">
+      <!-- Top Navigation Menu -->
+      <div class="topnav">
+        <a href="{% url 'blog:post_list' %}" class="active">sw33tp0t4t0
+          <!-- <div class="search-form">
+            <form>
+                <input type="search" placeholder="Search">
+            </form>
+        </div> -->
+        </a>
+        <div id="myLinks">
+          {% get_most_commented_posts as most_commented_posts %}
+          {% for p in most_commented_posts %}
+            <a href="{{ p.get_absolute_url }}" {% if p.id == post.id %}class="active"{% endif %}>
+              {% icon 'book' %} {{ p.title }}
+            </a>
+          {% endfor %}
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">{% icon 'bars' %}</a>
+      </div>
+
+      <script>
+        function myFunction() {
+          var x = document.getElementById("myLinks");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+      <div class="main-content">
+        <div id="content">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <div class="column col-three">
+      <div class="comment-box">
+      
+      </div>
+    </div>
+  </div>
+  
+</body>
+<script src="{% static 'tinymce/js/prism.js' %}"></script>
+</html>
