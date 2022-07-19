@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-to+@(kzpai#)h^ufb+ng$#)1s0j%d@84a%napx2_k+ihmm^g0o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -160,6 +160,10 @@ DJANGO_ICONS = {
 }
 
 TINYMCE_JS_ROOT = STATIC_ROOT / 'tinymce'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://sw33tp0t4t0-project.herokuapp.com'
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import django_heroku
